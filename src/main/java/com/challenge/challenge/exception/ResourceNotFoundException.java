@@ -1,10 +1,28 @@
 package com.challenge.challenge.exception;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.server.ResponseStatusException;
+import lombok.Getter;
+import lombok.Setter;
 
-public class ResourceNotFoundException extends ResponseStatusException {
+import java.io.Serial;
+
+@Setter
+@Getter
+public class ResourceNotFoundException extends RuntimeException {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    private String resource;
+
+    private String key;
+
+    private String value;
+
     public ResourceNotFoundException(final String resource, final String key, final String value) {
-        super(HttpStatus.NOT_FOUND, "Resource " + resource + " not found for " + key + " " + value);
+        super(String.format("Resource %s not found for %s %s", resource, key, value));
+        this.resource = resource;
+        this.key = key;
+        this.value = value;
     }
+
 }

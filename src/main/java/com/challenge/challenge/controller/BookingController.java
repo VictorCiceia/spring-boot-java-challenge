@@ -11,7 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import javax.validation.Valid;
+
 
 @RestController
 @RequestMapping("/booking")
@@ -41,7 +44,7 @@ public class BookingController {
     @Operation(summary = "Create", description = "Create a new Booking", responses = {
             @ApiResponse(responseCode = "200", description = "Successful operation", content = @Content(schema = @Schema(implementation = BookingDto.class)))}
     )
-    public BookingDto createUser(@RequestBody final BookingDto bookingDto) {
+    public BookingDto createUser(@Validated @RequestBody final BookingDto bookingDto) {
         return this.bookingService.save(bookingDto);
     }
 
@@ -49,7 +52,7 @@ public class BookingController {
     @Operation(summary = "Update", description = "Update a Booking by the ID attribute", responses = {
             @ApiResponse(responseCode = "200", description = "Successful operation", content = @Content(schema = @Schema(implementation = BookingDto.class)))}
     )
-    public BookingDto updateUser(@PathVariable("id") final String id, @RequestBody final BookingDto bookingDto) {
+    public BookingDto updateUser(@PathVariable("id") final String id, @Valid @RequestBody final BookingDto bookingDto) {
         return this.bookingService.update(bookingDto, id);
     }
 

@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class BookingServiceImpl implements BookingService {
 
     @Autowired
@@ -21,23 +23,27 @@ public class BookingServiceImpl implements BookingService {
     private BookingRepository bookingRepository;
 
     @Override
+    @Transactional(readOnly = true)
     public Page<BookingDto> all(final Pageable pageable) {
         return this.bookingRepository.findAll(pageable)
                 .map(this.bookingMapper::toDto);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public BookingDto findById(final String id) {
         return this.bookingMapper.toDto(this.findEntityById(id));
     }
 
     @Override
+    @Transactional
     public BookingDto save(final BookingDto bookingDto) {
         final BookingEntity entity = this.bookingMapper.toEntity(bookingDto);
         return this.bookingMapper.toDto(this.bookingRepository.save(entity));
     }
 
     @Override
+    @Transactional
     public BookingDto update(final BookingDto bookingDto, final String id) {
         final BookingEntity entity = this.findEntityById(id);
         final BookingEntity bookingUpdating = this.bookingMapper.toEntity(bookingDto);
@@ -46,6 +52,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
+    @Transactional
     public void deleteById(final String id) {
         final BookingEntity entity = this.findEntityById(id);
         this.bookingRepository.delete(entity);

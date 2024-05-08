@@ -27,7 +27,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public BookingDto findById(final Long id) {
+    public BookingDto findById(final String id) {
         return this.bookingMapper.toDto(this.findEntityById(id));
     }
 
@@ -38,7 +38,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public BookingDto update(final BookingDto bookingDto, final Long id) {
+    public BookingDto update(final BookingDto bookingDto, final String id) {
         final BookingEntity entity = this.findEntityById(id);
         final BookingEntity bookingUpdating = this.bookingMapper.toEntity(bookingDto);
         bookingUpdating.setId(entity.getId());
@@ -46,13 +46,13 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public void deleteById(final Long id) {
+    public void deleteById(final String id) {
         final BookingEntity entity = this.findEntityById(id);
         this.bookingRepository.delete(entity);
     }
 
-    private BookingEntity findEntityById(final Long id) {
+    private BookingEntity findEntityById(final String id) {
         return this.bookingRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Booking", "ID", id.toString()));
+                .orElseThrow(() -> new ResourceNotFoundException("Booking", "ID", id));
     }
 }

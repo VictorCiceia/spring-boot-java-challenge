@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.Duration;
 import java.util.Date;
 
 @Setter
@@ -17,7 +18,7 @@ import java.util.Date;
 public class BookingEntity {
 
     @Id
-    private Long id;
+    private String id;
 
     private String name;
 
@@ -27,7 +28,7 @@ public class BookingEntity {
 
     private String destination;
 
-    private int duration;
+    private Integer duration;
 
     private Date departure;
 

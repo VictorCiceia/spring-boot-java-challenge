@@ -8,12 +8,12 @@ public interface BookingService {
 
     Page<BookingDto> all(Pageable pageable);
 
-    BookingDto findById(Long id);
+    BookingDto findById(String id);
 
     BookingDto save(BookingDto bookingDto);
 
-    BookingDto update(BookingDto bookingDto, Long id);
+    BookingDto update(BookingDto bookingDto, String id);
 
-    void deleteById(Long id);
+    void deleteById(String id);
 
 }
